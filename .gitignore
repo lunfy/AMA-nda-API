@@ -1,0 +1,5 @@
+lib
+.flaskenv
+
+# macOS
+.DS_Store
