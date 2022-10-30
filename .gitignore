@@ -1,5 +1,6 @@
 lib
 .flaskenv
+.env
 
 # macOS
 .DS_Store
