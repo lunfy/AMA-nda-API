@@ -2,7 +2,7 @@ import os
 import psycopg2
 import postgres
 from dotenv import load_dotenv
-from flask import Flask, request, json
+from flask import Flask, request, jsonify
 
 load_dotenv()  # loads variables from .env file into environment
 
@@ -29,9 +29,10 @@ def user_registers():
                     return {"message": f"User {useremail} already exists"}, 403
             cursor.execute(postgres.CREATE_USER, (email,))
             userid = cursor.fetchone()[0]
+            cursor.close()
     return {"message": f"User {email} has been created with ID: {userid}"}, 201
 
-@app.route("/api/users", methods=['POST', 'PUT'])
+@app.route("/api/users", methods=['GET','POST', 'PUT'])
 def user_signin():
     if request.method == 'POST':
         email = request.form['email']
@@ -39,10 +40,22 @@ def user_signin():
             with connection.cursor() as cursor:
                 cursor.execute(postgres.UPDATE_SIGNIN, (email,))
                 logintime = cursor.fetchone()[0]
-                print('1: ', {cursor})
                 cursor.close()
-                print('2: ', cursor)
         return {"message": f"User session began at {logintime}"}, 201
     
+    if request.method == 'GET':
+        with connection:
+            with connection.cursor() as cursor:
+                cursor.execute(postgres.SELECT_USERS)
+                print('cursor: ', cursor.description)
+                columns = [x[0] for x in cursor.description]
+                print('columns: ', columns)
+                userdata = cursor.fetchall()
+                json_data = []
+                for result in userdata:
+                    json_data.append(dict(zip(columns,result)))
+                cursor.close()
+        return jsonify(json_data)
+
     # Edit profile route with PUT
     # if request.method == 'PUT':

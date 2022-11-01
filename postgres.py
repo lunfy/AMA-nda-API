@@ -3,7 +3,7 @@ CREATE_USER= (
 )
 
 SELECT_USERS= (
-    "SELECT email FROM users"
+    "SELECT user_id, email FROM users"
 )
 
 FIND_USER= (
