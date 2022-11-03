@@ -1,6 +1,6 @@
 {
     "amanda": {
-        "image": ":amanda-service.amanda-container.1",
+        "image": ":amanda-service.amanda-container.2",
         "ports": {
             "5000": "HTTP"
         }

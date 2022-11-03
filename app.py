@@ -195,4 +195,6 @@ def notifications():
         return {"message": "Notification deleted!"},200
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    from wsgiref.simple_server import make_server
+    srv = make_server('0.0.0.0', 5000, app)
+    srv.serve_forever()
