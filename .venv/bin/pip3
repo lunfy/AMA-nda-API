@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/lunfy/Desktop/SEI Capstone/AMA-nda-API/.venv/bin/python3.10" "$0" "$@"
+'''exec' "/Users/lunfy/Desktop/SEI Capstone/AMA-nda-API/.venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
